@@ -26,3 +26,16 @@ Route::get('/listings/create', [ListingController::class, 'create'])->name('list
 
 // Store listing
 Route::post('/listings', [ListingController::class,'store'])->name('listing.store');
+
+// Edit Listing
+Route::get('/listings/edit/{listing}', [ListingController::class,'edit'])->name('listing.edit');
+
+// Update listing
+Route::put('/listings/{listing}', [ListingController::class, 'update'])->name('listing.update');
+
+// Show the listing
+Route::get('/listings/{listing}', [ListingController::class,'show'])->name('listing.show');
+
+// Delete the listing
+Route::delete('/listings/{listing}', [ListingController::class,'destroy'])->name('listing.delete');
+
