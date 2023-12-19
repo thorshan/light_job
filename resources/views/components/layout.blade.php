@@ -44,7 +44,7 @@
                 <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
                     @auth
                     <li class="nav-item">
-                        <a href="" class="nav-link">
+                        <a href="{{route('dashboard')}}" class="nav-link">
                             <i class="fa-solid fa-user"></i> {{auth()->user()->name}}
                         </a>
                     </li>

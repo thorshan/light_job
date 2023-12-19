@@ -26,7 +26,7 @@ class ListingController extends Controller
 
         $formData = $request->validate([
             "name" => "required|max:50",
-            "title" => "required|max:25",
+            "title" => "required|max:50",
             "city" => "required",
             "tags" => "required",
             "description" => "required",
@@ -58,7 +58,7 @@ class ListingController extends Controller
 
         $list->save();
 
-        return redirect()->route("listings")->with("message", "Listing created successfully");
+        return redirect()->route("dashboard")->with("message", "Listing created successfully");
     }
 
     // Edit the listing
@@ -73,7 +73,7 @@ class ListingController extends Controller
 
         $formData = $request->validate([
             "name" => "required|max:50",
-            "title" => "required|max:25",
+            "title" => "required|max:50",
             "city" => "required",
             "tags" => "required",
             "description" => "required",
@@ -83,31 +83,26 @@ class ListingController extends Controller
             "img" => "image|mimes:jpeg,png,jpg,gif|max:2048",
         ]);
 
-        $list = Listing::find($listing->id);
-        if (!$list) {
-            abort(404);
-        }
-
-        $list->name = $formData["name"];
-        $list->title = $formData["title"];
-        $list->city = $formData["city"];
-        $list->description = $formData["description"];
-        $list->email = $formData["email"];
-        $list->tags = $formData["tags"];
-        $list->salary = $formData["salary"];
-        $list->website = $formData["website"];
+        $listing->name = $formData["name"];
+        $listing->title = $formData["title"];
+        $listing->city = $formData["city"];
+        $listing->description = $formData["description"];
+        $listing->email = $formData["email"];
+        $listing->tags = $formData["tags"];
+        $listing->salary = $formData["salary"];
+        $listing->website = $formData["website"];
 
         if ($request->hasFile('img')) {
             $file = $request->file('img');
             $ext = $file->getClientOriginalExtension();
             $file_name = time() . '.' . $ext;
             $file->move('uploads/', $file_name);
-            $list->img = $file_name;
+            $listing->img = $file_name;
         }
 
-        $list->save();
+        $listing->save();
 
-        return redirect()->route("listings")->with("message", "Listing updated successfully");
+        return redirect()->route("dashboard")->with("message", "Listing updated successfully");
     }
 
     // Show the listing
@@ -119,6 +114,6 @@ class ListingController extends Controller
     // Delete the listing
     public function destroy(Listing $listing){
         Listing::destroy($listing->id);
-        return redirect()->route("listings")->with("message", "Listing deleted successfully");
+        return redirect()->route("dashboard")->with("message", "Listing deleted successfully");
     }
 }
