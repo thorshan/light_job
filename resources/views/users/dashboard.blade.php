@@ -4,10 +4,14 @@
             <div class="col-md-2 bg-dark vh-100">
                 <ul class="navbar-nav">
                     <li class="nav-item mt-2">
-                        <a href="{{route('dashboard')}}" class="nav-link btn btn-secondary outline-none border-0 my-2"><i class="fa-solid fa-home" style="margin-right: 20px"></i>Dashboard</a>
+                        <a href="{{ route('dashboard') }}"
+                            class="nav-link btn btn-secondary outline-none border-0 my-2"><i class="fa-solid fa-home"
+                                style="margin-right: 20px"></i>Dashboard</a>
                     </li>
                     <li class="nav-item">
-                        <a href="#" class="nav-link btn btn-secondary outline-none border-0 my-2"><i class="fa-solid fa-plus" style="margin-right: 20px"></i>Add new job</a>
+                        <a href="{{ route('listing.create') }}"
+                            class="nav-link btn btn-secondary outline-none border-0 my-2"><i class="fa-solid fa-plus"
+                                style="margin-right: 20px"></i>Add new job</a>
                     </li>
                 </ul>
             </div>
@@ -18,7 +22,9 @@
                             <div class="card bg-light w-30 shadow-sm">
                                 <h2 class="card-title"></h2>
                                 <div class="card-body">
-                                    <p class="card-title">All Jobs<h2>40</h2></p>
+                                    <p class="card-title">All Jobs
+                                    <h2>40</h2>
+                                    </p>
                                     <small class="card-text text-muted">Last posted : 2023-12-21</small>
                                 </div>
                             </div>
@@ -27,7 +33,9 @@
                             <div class="card bg-light w-30 shadow-sm">
                                 <h2 class="card-title"></h2>
                                 <div class="card-body">
-                                    <p class="card-title">Active Jobs<h2>40</h2></p>
+                                    <p class="card-title">Active Jobs
+                                    <h2>40</h2>
+                                    </p>
                                     <small class="card-text text-muted">Last updated : 2023-12-21</small>
                                 </div>
                             </div>
@@ -36,7 +44,9 @@
                             <div class="card bg-light w-30 shadow-sm">
                                 <h2 class="card-title"></h2>
                                 <div class="card-body">
-                                    <p class="card-title">Expired Jobs<h2>40</h2></p>
+                                    <p class="card-title">Expired Jobs
+                                    <h2>40</h2>
+                                    </p>
                                     <small class="card-text text-muted">Last updated : 2023-12-21</small>
                                 </div>
                             </div>
@@ -53,12 +63,31 @@
                                 <th>Action</th>
                             </thead>
                             <tbody>
-                                <td>1</td>
-                                <td>Logo</td>
-                                <td>Web Developer</td>
-                                <td>Java, Mysql, Springboot</td>
-                                <td>3000</td>
-                                <td>Action</td>
+                                @foreach ($listings as $listing)
+                                    <tr>
+                                        <td>{{ $loop->index + 1 }}</td>
+                                        <td>
+                                            <img src="{{ asset('uploads/' . $listing->img) }}" width="30px">
+                                        </td>
+                                        <td>{{ $listing->title }}</td>
+                                        <td>{{ $listing->tags }}</td>
+                                        <td>{{ $listing->salary }}</td>
+                                        <td>
+                                            <div class="row">
+                                                <a href="{{ route('listing.show', $listing->id) }}"
+                                                    class="btn btn-success">View</a>
+                                                <a href="{{ route('listing.edit', $listing->id) }}"
+                                                    class="btn btn-primary mx-2">Edit</a>
+                                                <form action="{{ route('listing.delete', $listing->id) }}"
+                                                    method="POST">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <input type="submit" class="btn btn-danger" value="Delete">
+                                                </form>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                @endforeach
                             </tbody>
                         </table>
                     </div>

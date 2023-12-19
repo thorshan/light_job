@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Listing;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
@@ -10,7 +11,8 @@ class UserController extends Controller
 {
     //
     public function index(){
-        return view("users.dashboard");
+        $listings = Listing::latest()->get();
+        return view("users.dashboard", compact("listings"));
     }
 
     // Register form

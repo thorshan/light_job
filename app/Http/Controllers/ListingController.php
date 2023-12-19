@@ -26,7 +26,7 @@ class ListingController extends Controller
 
         $formData = $request->validate([
             "name" => "required|max:50",
-            "title" => "required|max:25",
+            "title" => "required|max:50",
             "city" => "required",
             "tags" => "required",
             "description" => "required",
@@ -56,9 +56,11 @@ class ListingController extends Controller
             $list->img = $file_name;
         }
 
+        $list['user_id'] = auth()->id();
+
         $list->save();
 
-        return redirect()->route("listings")->with("message", "Listing created successfully");
+        return redirect()->route("dashboard")->with("message", "Listing created successfully");
     }
 
     // Edit the listing
@@ -73,7 +75,7 @@ class ListingController extends Controller
 
         $formData = $request->validate([
             "name" => "required|max:50",
-            "title" => "required|max:25",
+            "title" => "required|max:50",
             "city" => "required",
             "tags" => "required",
             "description" => "required",
@@ -107,7 +109,7 @@ class ListingController extends Controller
 
         $list->save();
 
-        return redirect()->route("listings")->with("message", "Listing updated successfully");
+        return redirect()->route("dashboard")->with("message", "Listing updated successfully");
     }
 
     // Show the listing
@@ -119,6 +121,6 @@ class ListingController extends Controller
     // Delete the listing
     public function destroy(Listing $listing){
         Listing::destroy($listing->id);
-        return redirect()->route("listings")->with("message", "Listing deleted successfully");
+        return redirect()->route("dashboard")->with("message", "Listing deleted successfully");
     }
 }
