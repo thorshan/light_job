@@ -2,30 +2,42 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Listing;
+use Carbon\Carbon;
 use App\Models\User;
+use App\Models\Listing;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 
 class UserController extends Controller
 {
     //
-    public function index(){
+    public function index()
+    {
+        $all = Listing::count();
+        $startDate = Carbon::now()->subDays(30);
+        $activeListingsCount = Listing::where('created_at', '>=', $startDate)->count();
+        $expireListingsCount = Listing::where('created_at','<=' , $startDate)->count();
         $listings = Listing::latest()->get();
-        return view("users.dashboard", compact("listings"));
+        $output['listings'] = $listings;
+        $output['all'] = $all;
+        $output['active'] = $activeListingsCount;
+        $output['expire'] = $expireListingsCount;
+        return view("users.dashboard", $output);
     }
 
     // Register form
-    public function create(){
+    public function create()
+    {
         return view("register");
     }
 
     // Create new user
-    public function store(Request $request){
+    public function store(Request $request)
+    {
         $formData = $request->validate([
-            "name"=> 'required | min:3',
-            'email'=> ['required', 'email', Rule::unique('users', 'email')],
-            'password'=> 'required | min:6',
+            "name" => 'required | min:3',
+            'email' => ['required', 'email', Rule::unique('users', 'email')],
+            'password' => 'required | min:6',
         ]);
 
         $user = new User();
@@ -37,35 +49,38 @@ class UserController extends Controller
 
         auth()->login($user);
 
-        return redirect()->route('dashboard')->with('success','User created successfully');
+        return redirect()->route('dashboard')->with('success', 'User created successfully');
     }
 
     // Logout user
-    public function logout(Request $request){
+    public function logout(Request $request)
+    {
         auth()->logout();
         $request->session()->invalidate();
         $request->session()->regenerate();
 
-        return redirect()->route('listings')->with('success','User logged out successfully');
+        return redirect()->route('listings')->with('success', 'User logged out successfully');
     }
 
     // Login form
-    public function login(){
+    public function login()
+    {
         return view("login");
     }
 
 
     // Authenticate user
-    public function authenticate(Request $request){
+    public function authenticate(Request $request)
+    {
         $formData = $request->validate([
-            "name"=> 'required',
-            'password'=> 'required',
+            "name" => 'required',
+            'password' => 'required',
         ]);
 
-        if(auth()->attempt($formData)){
+        if (auth()->attempt($formData)) {
             $request->session()->regenerate();
-            return redirect()->route('dashboard')->with('success','Logged in successfully');
-        }else {
+            return redirect()->route('dashboard')->with('success', 'Logged in successfully');
+        } else {
             return back()->withErrors(['email' => 'Invalid credentails'])->onlyInput('email');
         }
     }

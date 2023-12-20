@@ -23,7 +23,7 @@
                                 <h2 class="card-title"></h2>
                                 <div class="card-body">
                                     <p class="card-title">All Jobs
-                                    <h2>40</h2>
+                                    <h2>{{$all}}</h2>
                                     </p>
                                     <small class="card-text text-muted">Last posted : 2023-12-21</small>
                                 </div>
@@ -34,7 +34,7 @@
                                 <h2 class="card-title"></h2>
                                 <div class="card-body">
                                     <p class="card-title">Active Jobs
-                                    <h2>40</h2>
+                                    <h2>{{$active}}</h2>
                                     </p>
                                     <small class="card-text text-muted">Last updated : 2023-12-21</small>
                                 </div>
@@ -45,7 +45,7 @@
                                 <h2 class="card-title"></h2>
                                 <div class="card-body">
                                     <p class="card-title">Expired Jobs
-                                    <h2>40</h2>
+                                    <h2>{{$expire}}</h2>
                                     </p>
                                     <small class="card-text text-muted">Last updated : 2023-12-21</small>
                                 </div>
@@ -60,6 +60,7 @@
                                 <th>Title</th>
                                 <th>Tags</th>
                                 <th>Salary</th>
+                                <th>Created by</th>
                                 <th>Action</th>
                             </thead>
                             <tbody>
@@ -72,6 +73,7 @@
                                         <td>{{ $listing->title }}</td>
                                         <td>{{ $listing->tags }}</td>
                                         <td>{{ $listing->salary }}</td>
+                                        <td>{{ $listing->user->name }}</td>
                                         <td>
                                             <div class="row">
                                                 <a href="{{ route('listing.show', $listing->id) }}"
