@@ -1,4 +1,5 @@
 <x-layout>
+<<<<<<< HEAD
     <div id="carouselExampleInterval" class="carousel slide carousel-fade" data-ride="carousel">
         <div class="carousel-inner">
             <div class="carousel-item active" data-interval="10000">
@@ -22,4 +23,7 @@
             <span class="sr-only">Next</span>
         </button>
     </div>
+=======
+
+>>>>>>> 4cef8579af27648008ebe5dfa329fd8cd09d9c91
 </x-layout>

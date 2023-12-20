@@ -56,6 +56,8 @@ class ListingController extends Controller
             $list->img = $file_name;
         }
 
+        $list['user_id'] = auth()->id();
+
         $list->save();
 
         return redirect()->route("dashboard")->with("message", "Listing created successfully");
@@ -70,6 +72,10 @@ class ListingController extends Controller
 
     // Update the listing
     public function update(Request $request, Listing $listing){
+
+        if($listing->user_id != auth()->id()){
+            abort(403,'Unauthorized Action');
+        }
 
         $formData = $request->validate([
             "name" => "required|max:50",
@@ -113,6 +119,10 @@ class ListingController extends Controller
 
     // Delete the listing
     public function destroy(Listing $listing){
+
+        if($listing->user_id != auth()->id()){
+            abort(403,'Unauthorized Action');
+        }
         Listing::destroy($listing->id);
         return redirect()->route("dashboard")->with("message", "Listing deleted successfully");
     }

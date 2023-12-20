@@ -22,8 +22,13 @@
                         <div class="card w-100">
                             <div class="card-body">
                                 <h5 class="card-title">{{ $listing->title }}</h5>
+<<<<<<< HEAD
                                 <small class="card-text"></small>
                                 <p class="card-text">{{ Str::limit($listing->description, 200, '  ...') }}</p>
+=======
+                                <small class="card-text text-primary">{{$listing->name}}</small>
+                                <p class="card-text mt-3">{{ Str::limit($listing->description, 200, '  ...') }}</p>
+>>>>>>> 4cef8579af27648008ebe5dfa329fd8cd09d9c91
                                 <a href="{{ route('listing.show', $listing->id) }}" class="btn btn-primary btn-sm">View Detail</a>
                             </div>
                         </div>
