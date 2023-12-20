@@ -18,12 +18,12 @@
         <div class="container mt-3">
             <div class="row">
                 @foreach ($listings as $listing)
-                    <div class="col-md-6">
+                    <div class="col-md-6 mb-3">
                         <div class="card w-100">
                             <div class="card-body">
                                 <h5 class="card-title">{{ $listing->title }}</h5>
-                                <small class="card-text"></small>
-                                <p class="card-text">{{ Str::limit($listing->description, 20, '  ...') }}</p>
+                                <small class="card-text text-primary">{{$listing->name}}</small>
+                                <p class="card-text mt-3">{{ Str::limit($listing->description, 200, '  ...') }}</p>
                                 <a href="{{ route('listing.show', $listing->id) }}" class="btn btn-primary btn-sm">View Detail</a>
                             </div>
                         </div>

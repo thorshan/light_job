@@ -14,7 +14,7 @@ class UserController extends Controller
     public function index()
     {
         $all = Listing::count();
-        $startDate = Carbon::now()->subDays(30);
+        $startDate = Carbon::now()->subDays(1);
         $activeListingsCount = Listing::where('created_at', '>=', $startDate)->count();
         $expireListingsCount = Listing::where('created_at','<=' , $startDate)->count();
         $listings = Listing::latest()->get();

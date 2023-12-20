@@ -23,7 +23,7 @@
                                 <h2 class="card-title"></h2>
                                 <div class="card-body">
                                     <p class="card-title">All Jobs
-                                    <h2>{{$all}}</h2>
+                                    <h2 class="text-primary">{{$all}}</h2>
                                     </p>
                                     <small class="card-text text-muted">Last posted : 2023-12-21</small>
                                 </div>
@@ -34,7 +34,7 @@
                                 <h2 class="card-title"></h2>
                                 <div class="card-body">
                                     <p class="card-title">Active Jobs
-                                    <h2>{{$active}}</h2>
+                                    <h2 class="text-success">{{$active}}</h2>
                                     </p>
                                     <small class="card-text text-muted">Last updated : 2023-12-21</small>
                                 </div>
@@ -45,7 +45,7 @@
                                 <h2 class="card-title"></h2>
                                 <div class="card-body">
                                     <p class="card-title">Expired Jobs
-                                    <h2>{{$expire}}</h2>
+                                    <h2 class="text-danger">{{$expire}}</h2>
                                     </p>
                                     <small class="card-text text-muted">Last updated : 2023-12-21</small>
                                 </div>
@@ -77,14 +77,14 @@
                                         <td>
                                             <div class="row">
                                                 <a href="{{ route('listing.show', $listing->id) }}"
-                                                    class="btn btn-success">View</a>
+                                                    class="btn btn-success btn-sm">View</a>
                                                 <a href="{{ route('listing.edit', $listing->id) }}"
-                                                    class="btn btn-primary mx-2">Edit</a>
+                                                    class="btn btn-primary btn-sm mx-2">Edit</a>
                                                 <form action="{{ route('listing.delete', $listing->id) }}"
                                                     method="POST">
                                                     @csrf
                                                     @method('DELETE')
-                                                    <input type="submit" class="btn btn-danger" value="Delete">
+                                                    <input type="submit" class="btn btn-danger btn-sm" value="Delete">
                                                 </form>
                                             </div>
                                         </td>
